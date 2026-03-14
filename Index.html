@@ -121,4 +121,104 @@ tr:last-child td{border-bottom:none;}tr:hover td{background:rgba(255,255,255,.01
 .ad-tree-item .ev-dot{width:7px;height:7px;border-radius:50%;flex-shrink:0;}
 .ev-dot.has-code{background:#22c55e;}.ev-dot.empty{background:#ccc;}
 /* AD Center: Code Editor */
-.ad-e
+.ad-ead-editor-wrap{flex:1;display:flex;flex-direction:column;min-width:0;}  
+.ad-toolbar{background:#dce6f1;border-bottom:2px solid #8baacf;padding:4px 10px;display:flex;align-items:center;gap:6px;flex-wrap:wrap;}  
+.ad-btn{font-family:Arial,sans-serif;font-size:11px;padding:3px 12px;background:linear-gradient(#e8e8e8,#d0d0d0);border:1px solid #999;border-radius:2px;cursor:pointer;color:#000;}  
+.ad-btn:hover{background:linear-gradient(#d0d0d0,#c0c0c0);}  
+.ad-btn.primary{background:linear-gradient(#c5d5e8,#8baacf);color:#1c3557;font-weight:bold;}  
+.ad-btn.run-btn{background:linear-gradient(#b8e6b0,#5cb85c);color:#1c4a1c;font-weight:bold;border-color:#4a9a4a;}  
+.ad-btn:disabled{opacity:.5;cursor:not-allowed;}  
+.ad-sep{width:1px;height:18px;background:#999;margin:0 3px;}  
+.ad-ctx-bar{background:#fff;border-bottom:1px solid #ccc;padding:4px 10px;display:flex;align-items:center;gap:8px;flex-wrap:wrap;}  
+.ad-ctx-bar label{font-family:Arial,sans-serif;font-size:11px;color:#333;font-weight:bold;}  
+.ad-ctx-bar select{font-family:Arial,sans-serif;font-size:11px;border:1px solid #999;padding:2px 5px;background:#fff;min-width:130px;}  
+.ad-editor{flex:1;position:relative;overflow:hidden;}  
+#adCode{width:100%;height:100%;background:#fffffe;color:#000;font-family:'Courier New',monospace;font-size:12px;line-height:1.6;padding:12px;border:none;outline:none;resize:none;tab-size:3;}  
+/* AD Right: PS Page Preview */  
+.ad-preview{width:460px;display:flex;flex-direction:column;flex-shrink:0;border-left:2px solid #999;}  
+.ad-prev-hdr{background:#1c3557;color:#fff;font-family:Arial,sans-serif;font-size:11px;font-weight:bold;padding:5px 10px;display:flex;align-items:center;gap:8px;}  
+.ad-prev-status{font-size:10px;padding:1px 7px;border-radius:10px;margin-left:auto;}  
+.ad-prev-status.idle{background:rgba(255,255,255,.1);color:#ccc;}  
+.ad-prev-status.ok{background:rgba(34,197,94,.3);color:#86efac;}  
+.ad-prev-status.err{background:rgba(244,63,94,.3);color:#fca5a5;}  
+#adFrame{flex:1;border:none;background:#fff;}  
+/* Event templates */  
+.ev-template-note{font-family:Arial,sans-serif;font-size:10px;color:#666;padding:4px 10px;background:#fffbe6;border-bottom:1px solid #e6d88a;}  
+/* Mobile */  
+.mtog{display:none;position:fixed;top:10px;left:10px;z-index:200;background:var(--gold);border:none;border-radius:6px;width:34px;height:34px;cursor:pointer;align-items:center;justify-content:center;flex-direction:column;gap:4px;}  
+.mtog span{width:16px;height:2px;background:#000;border-radius:2px;display:block;}  
+@media(max-width:900px){.ad-preview{display:none;}.ad-nav{width:170px;}}  
+@media(max-width:768px){#sb{transform:translateX(-100%);}#sb.open{transform:translateX(0);}#main{margin-left:0;}.pg{padding:18px 14px;}.sgrid{grid-template-columns:repeat(2,1fr);}.mtog{display:flex;}}  
+</style>  
+</head>  
+<body>  
+<button class="mtog" onclick="document.getElementById('sb').classList.toggle('open')"><span></span><span></span><span></span></button>  <!-- ═══ SIDEBAR ═══ -->  <nav id="sb">  
+  <div class="logo"><div class="li">PS</div><div><div class="lt">PeopleSoft Academy</div><div class="ls">Learn · Build · Master</div></div></div>  
+  <div class="srch"><input type="text" placeholder="Search topics…" onkeyup="filterNav(this.value)"/></div>  
+  <div id="navList">  
+    <div class="nst"><div class="nstl">🟣 IDE</div>  
+      <div class="ni ide-ni" onclick="show('ide')"><span class="ic">⚡</span>App Designer IDE</div>  
+    </div>  
+    <div class="nst"><div class="nstl">Getting Started</div>  
+      <div class="ni active" onclick="show('home')"><span class="ic">🏠</span>Home<span class="ld b" style="margin-left:auto"></span></div>  
+      <div class="ni" onclick="show('intro')"><span class="ic">📖</span>Introduction<span class="ld b" style="margin-left:auto"></span></div>  
+      <div class="ni" onclick="show('arch')"><span class="ic">🏗️</span>Architecture<span class="ld i" style="margin-left:auto"></span></div>  
+      <div class="ni" onclick="show('host')"><span class="ic">🌐</span>Host This Site<span class="ld b" style="margin-left:auto"></span></div>  
+    </div>  
+    <div class="nst"><div class="nstl">App Designer</div>  
+      <div class="ni" onclick="show('fields')"><span class="ic">🔡</span>Fields<span class="ld b" style="margin-left:auto"></span></div>  
+      <div class="ni" onclick="show('records')"><span class="ic">🗃️</span>Records<span class="ld i" style="margin-left:auto"></span></div>  
+      <div class="ni" onclick="show('pages')"><span class="ic">📄</span>Pages<span class="ld i" style="margin-left:auto"></span></div>  
+      <div class="ni" onclick="show('components')"><span class="ic">🧩</span>Components<span class="ld i" style="margin-left:auto"></span></div>  
+      <div class="ni" onclick="show('menus')"><span class="ic">📋</span>Menus & CREFs<span class="ld b" style="margin-left:auto"></span></div>  
+    </div>  
+    <div class="nst"><div class="nstl">PeopleCode</div>  
+      <div class="ni" onclick="show('pc_events')"><span class="ic">⚡</span>All PC Events<span class="ld i" style="margin-left:auto"></span></div>  
+      <div class="ni" onclick="show('pc_basics')"><span class="ic">💻</span>PC Basics<span class="ld b" style="margin-left:auto"></span></div>  
+      <div class="ni" onclick="show('app_pkg')"><span class="ic">📐</span>App Packages<span class="ld a" style="margin-left:auto"></span></div>  
+    </div>  
+    <div class="nst"><div class="nstl">Data Tools</div>  
+      <div class="ni" onclick="show('sql')"><span class="ic">🔍</span>PS Query<span class="ld b" style="margin-left:auto"></span></div>  
+      <div class="ni" onclick="show('ae')"><span class="ic">⚙️</span>App Engine<span class="ld a" style="margin-left:auto"></span></div>  
+      <div class="ni" onclick="show('ci')"><span class="ic">🔌</span>Component Interface<span class="ld a" style="margin-left:auto"></span></div>  
+      <div class="ni" onclick="show('exci')"><span class="ic">📊</span>Excel to CI<span class="ld i" style="margin-left:auto"></span></div>  
+    </div>  
+    <div class="nst"><div class="nstl">Integration</div>  
+      <div class="ni" onclick="show('ib')"><span class="ic">🔗</span>Integration Broker<span class="ld i" style="margin-left:auto"></span></div>  
+      <div class="ni" onclick="show('rest')"><span class="ic">🚀</span>REST Services<span class="ld a" style="margin-left:auto"></span></div>  
+    </div>  
+    <div class="nst"><div class="nstl">Admin</div>  
+      <div class="ni" onclick="show('pia')"><span class="ic">🌍</span>PIA<span class="ld i" style="margin-left:auto"></span></div>  
+      <div class="ni" onclick="show('prcs')"><span class="ic">⏰</span>Process Scheduler<span class="ld i" style="margin-left:auto"></span></div>  
+      <div class="ni" onclick="show('pmon')"><span class="ic">📡</span>Process Monitor<span class="ld b" style="margin-left:auto"></span></div>  
+      <div class="ni" onclick="show('sec')"><span class="ic">🔐</span>Security<span class="ld i" style="margin-left:auto"></span></div>  
+    </div>  
+  </div>  
+</nav>  <!-- ═══ MAIN ═══ -->  <main id="main">  
+<div class="topbar">  
+  <div><div class="tbt" id="tbt">PeopleSoft Academy</div><div class="tbp" id="tbp">Home</div></div>  
+  <div class="lpills" id="lpills">  
+    <div class="lp b active" onclick="setLv('basic')">● Basic</div>  
+    <div class="lp i" onclick="setLv('intermediate')">● Intermediate</div>  
+    <div class="lp a" onclick="setLv('advanced')">● Advanced</div>  
+  </div>  
+</div>  <!-- ══ HOME ══ -->  <div class="pg active" id="pg-home">  
+  <!-- BASIC HOME -->  
+  <div class="lv active" id="pg-home-basic">  
+    <div class="hero">  
+      <div class="htag">✦ Beginner Track</div>  
+      <h1>Welcome to <span>PeopleSoft</span><br/>Start Your Journey</h1>  
+      <p>PeopleSoft is Oracle's enterprise application platform used by thousands of companies worldwide for HR, Finance, and Campus management. This track takes you from zero to confident PeopleSoft developer.</p>  
+      <div class="sgrid">  
+        <div class="stat"><div class="sn">18+</div><div class="sl">Topics</div></div>  
+        <div class="stat"><div class="sn">3</div><div class="sl">Levels</div></div>  
+        <div class="stat"><div class="sn">AI</div><div class="sl">IDE Built-in</div></div>  
+        <div class="stat"><div class="sn">Free</div><div class="sl">Always</div></div>  
+      </div>  
+    </div>  
+    <h2>🟢 Beginner Learning Path</h2>  
+    <div class="box ok"><strong>Start Here:</strong> Follow this path top to bottom. Each topic builds on the previous one. Don't skip ahead — PeopleSoft concepts stack on each other.</div>  
+    <div class="cards">  
+      <div class="card" onclick="show('intro')"><div class="ci">📖</div><div class="ct">1. What is PeopleSoft?</div><div class="cd">Modules, terminology, how it fits together</div></div>  
+      <div class="card" onclick="show('arch')"><div class="ci">🏗️</div><div cl
+ 
